@@ -229,5 +229,6 @@
             </div>
         </footer>
     </main>
+    <x-support-modal />
 </body>
 </html>

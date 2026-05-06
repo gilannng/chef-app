@@ -67,102 +67,7 @@
 <body class="font-body text-on-surface antialiased pb-24 md:pb-0 flex flex-col md:flex-row min-h-screen">
 
     <!-- Sidebar Overlay for Mobile -->
-    <div id="sidebar-overlay"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden opacity-0 transition-all duration-300 ease-in-out"
-        onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <aside id="sidebar"
-        class="group/sidebar h-screen fixed left-0 top-0 border-r border-surface-variant bg-surface/95 backdrop-blur-xl flex flex-col z-[60] transition-all duration-300 ease-in-out shadow-2xl md:shadow-none hover:md:shadow-2xl
-        w-64 -translate-x-full md:translate-x-0 md:w-20 hover:md:w-64 overflow-x-hidden overflow-y-auto custom-scrollbar py-6">
-
-        <button onclick="toggleSidebar()"
-            class="md:hidden absolute top-4 right-4 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="flex flex-col items-center pt-2 px-6 md:px-0 group-hover/sidebar:px-6 transition-all duration-300">
-            <div class="relative cursor-pointer shrink-0 flex justify-center w-full">
-                <a href="/settings" class="block">
-                    <img alt="Chef logo"
-                        class="w-16 h-16 md:w-10 md:h-10 group-hover/sidebar:w-16 group-hover/sidebar:h-16 rounded-full object-cover organic-shadow relative z-10 border-2 border-white transition-all duration-300"
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=fbf9f0" />
-                </a>
-            </div>
-            <div class="text-center mt-3 opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                <h2 class="text-lg font-black text-primary font-headline tracking-tight">The Atelier</h2>
-                <p class="text-[10px] font-bold text-secondary tracking-widest uppercase">Chef Simulator</p>
-            </div>
-        </div>
-
-        <div class="px-6 md:px-3 group-hover/sidebar:px-6 transition-all duration-300 w-full mt-6 shrink-0">
-            <a href="/chat"
-                class="w-full bg-gradient-to-r from-primary to-primary-container text-white rounded-xl py-3 md:py-3 px-4 md:px-0 group-hover/sidebar:px-4 font-bold text-sm organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-200 flex justify-center items-center overflow-hidden">
-                <span class="material-symbols-outlined text-[20px] shrink-0">add_circle</span> 
-                <span class="whitespace-nowrap font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 w-auto md:w-0 group-hover/sidebar:w-auto overflow-hidden pl-2">Create Recipe</span>
-            </a>
-        </div>
-
-        <nav class="flex-1 space-y-1.5 font-medium px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 mt-6 shrink-0">
-            <a href="/dashboard" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">grid_view</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Home</span>
-            </a>
-            <a href="/explore" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">restaurant_menu</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Recipes</span>
-            </a>
-            <a href="/pantry" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">inventory_2</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Pantry</span>
-            </a>
-            <a href="/community" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">groups</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Community</span>
-            </a>
-            <a href="/bookmarks" class="flex items-center bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bookmark</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Bookmarks</span>
-            </a>
-            <a href="/history" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">history</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">History</span>
-            </a>
-        </nav>
-
-        <div class="mt-4 space-y-1.5 font-medium border-t border-surface-variant pt-4 px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 shrink-0">
-            <a href="/settings" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">settings</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
-            </a>
-            <a href="#" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">help_outline</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Support</span>
-            </a>
-            <a href="#" onclick="openLogoutModal(event)" class="flex items-center text-error hover:bg-error-container hover:text-error rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">logout</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Log Out</span>
-            </a>
-        </div>
-    </aside>
+    <x-sidebar active="bookmarks" />
 
     <div id="main-content" class="md:ml-20 flex-1 flex flex-col relative transition-all duration-300 w-full h-screen overflow-y-auto">
 
@@ -225,7 +130,7 @@
                             <span class="material-symbols-outlined text-[20px] icon-fill">bookmark</span>
                         </div>
                         <div class="aspect-[4/3] w-full overflow-hidden relative bg-surface-container-low">
-                            <img alt="Pan-seared salmon" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply" src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=600&auto=format&fit=crop"/>
+                            <img alt="Pan-seared salmon" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1200&auto=format&fit=crop"/>
                             <!-- Rating Overlay -->
                             <div class="absolute bottom-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm">
                                 <span class="material-symbols-outlined text-yellow-500 text-[16px] icon-fill">star</span>
@@ -250,7 +155,7 @@
                             <span class="material-symbols-outlined text-[20px] icon-fill">bookmark</span>
                         </div>
                         <div class="aspect-[4/3] w-full overflow-hidden relative bg-surface-container-low">
-                            <img alt="Avocado toast" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply" src="https://images.unsplash.com/photo-1603048297172-c92544798d5e?q=80&w=600&auto=format&fit=crop"/>
+                            <img alt="Avocado toast" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=1200&auto=format&fit=crop"/>
                             <div class="absolute bottom-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm">
                                 <span class="material-symbols-outlined text-yellow-500 text-[16px] icon-fill">star</span>
                                 <span class="text-sm font-bold text-on-surface">4.7</span>
@@ -274,7 +179,7 @@
                             <span class="material-symbols-outlined text-[20px] icon-fill">bookmark</span>
                         </div>
                         <div class="aspect-[4/3] w-full overflow-hidden relative bg-surface-container-low">
-                            <img alt="Handmade pasta" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply" src="https://images.unsplash.com/photo-1611270629569-8b357cb88da9?q=80&w=600&auto=format&fit=crop"/>
+                            <img alt="Handmade pasta" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1200&auto=format&fit=crop"/>
                             <div class="absolute bottom-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm">
                                 <span class="material-symbols-outlined text-yellow-500 text-[16px] icon-fill">star</span>
                                 <span class="text-sm font-bold text-on-surface">5.0</span>
@@ -309,8 +214,11 @@
                                 <div class="bg-primary/10 p-3 rounded-full text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
                                     <span class="material-symbols-outlined icon-fill">bookmark</span>
                                 </div>
-                                <div class="min-w-0 flex-1">
-                                    <h4 class="text-lg font-bold text-on-surface mb-2 group-hover:text-primary transition-colors leading-tight truncate">{{ $session->title }}</h4>
+                                <div class="min-w-0 flex-1 relative">
+                                    <button onclick="toggleBookmark(event, '{{ $session->id }}')" class="absolute top-0 right-0 text-primary hover:text-secondary/30 transition-colors p-1 rounded-full hover:bg-surface-container-high" title="Hapus Penanda">
+                                        <span class="material-symbols-outlined text-[20px] icon-fill">bookmark</span>
+                                    </button>
+                                    <h4 class="text-lg font-bold text-on-surface mb-2 group-hover:text-primary transition-colors leading-tight truncate pr-8">{{ $session->title }}</h4>
                                     @if($session->latestMessage)
                                         <p class="text-sm text-on-surface-variant mb-4 leading-relaxed line-clamp-2">{{ Str::limit($session->latestMessage->content, 120) }}</p>
                                     @endif
@@ -326,6 +234,46 @@
                             <span class="material-symbols-outlined text-5xl mb-3">bookmark</span>
                             <p class="text-base font-medium mb-1">Belum ada percakapan tersimpan</p>
                             <p class="text-sm">Bookmark percakapan dengan AI dari halaman chat</p>
+                        </div>
+                    @endforelse
+                </div>
+            </section>
+
+            <section class="mt-12">
+                <div class="mb-8 flex items-center justify-between">
+                    <h3 class="text-2xl font-bold text-on-surface flex items-center gap-3">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+                        Resep Eksplorasi Tersimpan
+                    </h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    @forelse($bookmarkedRecipes ?? [] as $recipe)
+                        <article class="recipe-card bg-white rounded-3xl overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative border border-surface-variant/60 flex flex-col" id="recipe-{{ $recipe->recipe_id }}">
+                            <button class="absolute top-4 right-4 z-10 bg-white p-2 rounded-full text-primary hover:text-error transition-colors shadow-md bookmark-btn" onclick="removeExploreBookmark(event, {{ $recipe->recipe_id }})">
+                                <span class="material-symbols-outlined icon-bookmark text-[20px] icon-fill">bookmark</span>
+                            </button>
+                            <div class="relative h-56 overflow-hidden bg-surface-container-low">
+                                <img alt="{{ $recipe->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="{{ $recipe->image }}"/>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="text-primary font-bold text-[11px] uppercase tracking-wider">{{ $recipe->category }}</span>
+                                    <span class="flex items-center text-[11px] text-on-surface-variant font-medium"><span class="material-symbols-outlined text-[14px] mr-1">schedule</span> {{ $recipe->time }}</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">
+                                    <a href="{{ route('recipe.detail', ['slug' => $recipe->slug]) }}" class="hover:text-primary transition-colors before:absolute before:inset-0">
+                                        {{ $recipe->title }}
+                                    </a>
+                                </h3>
+                                <p class="text-sm text-on-surface-variant mb-6 line-clamp-2 relative z-10">{{ $recipe->description }}</p>
+                            </div>
+                        </article>
+                    @empty
+                        <div class="col-span-full py-12 flex flex-col items-center justify-center text-on-surface-variant/50">
+                            <span class="material-symbols-outlined text-5xl mb-3">restaurant_menu</span>
+                            <p class="text-base font-medium mb-1">Belum ada resep tersimpan</p>
+                            <p class="text-sm">Eksplorasi resep dan simpan yang Anda sukai</p>
+                            <a href="/explore" class="mt-4 bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-primary-container transition-colors text-sm">Eksplorasi Sekarang</a>
                         </div>
                     @endforelse
                 </div>
@@ -406,6 +354,73 @@
                 }
             }
         });
+
+        async function toggleBookmark(e, sessionId) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (!confirm('Hapus penanda ini?')) return;
+            
+            try {
+                const response = await fetch(`/chat/session/${sessionId}/bookmark`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Gagal mengubah penanda.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan.');
+            }
+        }
+
+        async function removeExploreBookmark(e, recipeId) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (!confirm('Hapus resep ini dari penanda?')) return;
+            
+            try {
+                const response = await fetch('/explore/bookmark', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        recipe_id: recipeId,
+                        // Provide dummy required fields for deletion since the backend only uses recipe_id to find and delete it
+                        title: 'dummy',
+                        slug: 'dummy'
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === 'removed') {
+                        document.getElementById('recipe-' + recipeId).remove();
+                        // Optionally refresh the page to update empty state if needed
+                        if (document.querySelectorAll('[id^="recipe-"]').length === 0) {
+                            window.location.reload();
+                        }
+                    }
+                } else {
+                    alert('Gagal menghapus penanda.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan.');
+            }
+        }
     </script>
     <!-- Logout Modal Container -->
     <div id="logout-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden opacity-0 transition-all duration-300 ease-in-out">
@@ -445,5 +460,6 @@
             }
         });
     </script>
+    <x-support-modal />
 </body>
 </html>

@@ -64,103 +64,8 @@
 </head>
 <body class="font-body text-on-surface antialiased pb-24 md:pb-0 flex flex-col md:flex-row min-h-screen">
 
-    <!-- Sidebar Overlay for Mobile -->
-    <div id="sidebar-overlay"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden opacity-0 transition-all duration-300 ease-in-out"
-        onclick="toggleSidebar()"></div>
-
     <!-- Sidebar -->
-    <aside id="sidebar"
-        class="group/sidebar h-screen fixed left-0 top-0 border-r border-surface-variant bg-surface/95 backdrop-blur-xl flex flex-col z-[60] transition-all duration-300 ease-in-out shadow-2xl md:shadow-none hover:md:shadow-2xl
-        w-64 -translate-x-full md:translate-x-0 md:w-20 hover:md:w-64 overflow-x-hidden overflow-y-auto custom-scrollbar py-6">
-
-        <button onclick="toggleSidebar()"
-            class="md:hidden absolute top-4 right-4 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="flex flex-col items-center pt-2 px-6 md:px-0 group-hover/sidebar:px-6 transition-all duration-300">
-            <div class="relative cursor-pointer shrink-0 flex justify-center w-full">
-                <a href="/settings" class="block">
-                    <img alt="Chef logo"
-                        class="w-16 h-16 md:w-10 md:h-10 group-hover/sidebar:w-16 group-hover/sidebar:h-16 rounded-full object-cover organic-shadow relative z-10 border-2 border-white transition-all duration-300"
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=fbf9f0" />
-                </a>
-            </div>
-            <div class="text-center mt-3 opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                <h2 class="text-lg font-black text-primary font-headline tracking-tight">The Atelier</h2>
-                <p class="text-[10px] font-bold text-secondary tracking-widest uppercase">Chef Simulator</p>
-            </div>
-        </div>
-
-        <div class="px-6 md:px-3 group-hover/sidebar:px-6 transition-all duration-300 w-full mt-6 shrink-0">
-            <a href="/chat"
-                class="w-full bg-gradient-to-r from-primary to-primary-container text-white rounded-xl py-3 md:py-3 px-4 md:px-0 group-hover/sidebar:px-4 font-bold text-sm organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-200 flex justify-center items-center overflow-hidden">
-                <span class="material-symbols-outlined text-[20px] shrink-0">add_circle</span> 
-                <span class="whitespace-nowrap font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 w-auto md:w-0 group-hover/sidebar:w-auto overflow-hidden pl-2">Create Recipe</span>
-            </a>
-        </div>
-
-        <nav class="flex-1 space-y-1.5 font-medium px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 mt-6 shrink-0">
-            <a href="/dashboard" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">grid_view</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Home</span>
-            </a>
-            <a href="/explore" class="flex items-center bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Recipes</span>
-            </a>
-            <a href="/pantry" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">inventory_2</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Pantry</span>
-            </a>
-            <a href="/community" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">groups</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Community</span>
-            </a>
-            <a href="/bookmarks" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">bookmark</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Bookmarks</span>
-            </a>
-            <a href="/history" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">history</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">History</span>
-            </a>
-        </nav>
-
-        <div class="mt-4 space-y-1.5 font-medium border-t border-surface-variant pt-4 px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 shrink-0">
-            <a href="/settings" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">settings</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
-            </a>
-            <a href="#" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">help_outline</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Support</span>
-            </a>
-            <a href="#" onclick="openLogoutModal(event)" class="flex items-center text-error hover:bg-error-container hover:text-error rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">logout</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Log Out</span>
-            </a>
-        </div>
-    </aside>
+    <x-sidebar active="explore" />
 
     <div id="main-content" class="md:ml-20 flex-1 flex flex-col relative transition-all duration-300 w-full">
 
@@ -241,34 +146,34 @@
     <main class="pt-6 md:pt-28 px-4 md:px-8 max-w-7xl mx-auto">
         
         <section class="relative bg-surface-container-lowest rounded-[24px] overflow-hidden mb-10 shadow-sm border border-surface-variant/40">
-            <div class="absolute inset-0 z-0 opacity-30">
-                <img alt="Kitchen background" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1200&auto=format&fit=crop"/>
-                <div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/90 to-transparent"></div>
+            <div class="absolute inset-0 z-0 opacity-80">
+                <img alt="Kitchen background" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1200&auto=format&fit=crop"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/70 to-transparent"></div>
             </div>
             <div class="relative z-10 py-16 px-8 md:px-12 md:w-2/3">
-                <h1 class="text-4xl md:text-[42px] font-extrabold text-on-surface tracking-tight mb-4 leading-tight">Temukan Inspirasi Masak</h1>
-                <p class="text-base text-on-surface-variant mb-0 max-w-md leading-relaxed">Jelajahi ribuan resep dari dapur lokal hingga hidangan internasional, dikurasi khusus untuk pengalaman masakmu.</p>
+                <h1 class="text-4xl md:text-[42px] font-extrabold text-on-surface tracking-tight mb-4 leading-tight">{{ __('messages.explore_title') }}</h1>
+                <p class="text-base text-on-surface-variant mb-0 max-w-md leading-relaxed">{{ __('messages.explore_subtitle') }}</p>
             </div>
         </section>
 
         <section class="mb-10 overflow-x-auto hide-scrollbar">
             <div class="flex gap-3 min-w-max px-1" id="categoryFilters">
-                <button onclick="setCategory('Semua', this)" class="category-btn active bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">Semua</button>
-                <button onclick="setCategory('Sarapan', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">Sarapan</button>
-                <button onclick="setCategory('Makan Siang', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">Makan Siang</button>
-                <button onclick="setCategory('Makan Malam', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">Makan Malam</button>
-                <button onclick="setCategory('Dessert', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">Dessert</button>
+                <button onclick="setCategory('Semua', this)" class="category-btn active bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">{{ __('messages.explore_all') }}</button>
+                <button onclick="setCategory('Sarapan', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">{{ __('messages.explore_breakfast') }}</button>
+                <button onclick="setCategory('Makan Siang', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">{{ __('messages.explore_lunch') }}</button>
+                <button onclick="setCategory('Makan Malam', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">{{ __('messages.explore_dinner') }}</button>
+                <button onclick="setCategory('Dessert', this)" class="category-btn bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-default-class="bg-white border border-outline-variant/30 text-on-surface font-medium text-sm px-6 py-2.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm" data-active-class="bg-primary text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:bg-primary-container transition-colors">{{ __('messages.explore_dessert') }}</button>
             </div>
         </section>
 
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="recipesContainer">
             @foreach($recipes as $recipe)
             <article class="recipe-card bg-white rounded-3xl overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative border border-surface-variant/60 flex flex-col" data-category="{{ $recipe['category'] }}" data-title="{{ $recipe['title'] }}" data-id="{{ $recipe['id'] }}">
-                <button class="absolute top-4 right-4 z-10 bg-white p-2 rounded-full text-secondary hover:text-error transition-colors shadow-md bookmark-btn" onclick="toggleBookmark(this, {{ $recipe['id'] }})">
+                <button class="absolute top-4 right-4 z-10 bg-white p-2 rounded-full text-secondary hover:text-error transition-colors shadow-md bookmark-btn" onclick="toggleBookmark(this, {{ json_encode($recipe) }})">
                     <span class="material-symbols-outlined icon-bookmark text-[20px]">bookmark</span>
                 </button>
                 <div class="relative h-56 overflow-hidden bg-surface-container-low">
-                    <img alt="{{ $recipe['title'] }}" class="w-full h-full object-cover mix-blend-multiply group-hover:scale-110 transition-transform duration-700" src="{{ $recipe['image'] }}"/>
+                    <img alt="{{ $recipe['title'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="{{ $recipe['image'] }}"/>
                 </div>
                 <div class="p-6 flex flex-col flex-1">
                     <div class="flex items-center gap-3 mb-3">
@@ -283,7 +188,7 @@
                     <p class="text-sm text-on-surface-variant mb-6 line-clamp-2 relative z-10">{{ $recipe['description'] }}</p>
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-surface-variant/50 relative z-10">
                         <span class="text-xs font-bold text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">local_fire_department</span> {{ $recipe['difficulty'] }}</span>
-                        <a href="/chat" class="text-primary font-bold text-sm flex items-center hover:text-primary-container transition-colors group/btn">Masak <span class="material-symbols-outlined text-[18px] ml-1 transform group-hover/btn:translate-x-1 transition-transform">arrow_forward</span></a>
+                        <a href="/chat" class="text-primary font-bold text-sm flex items-center hover:text-primary-container transition-colors group/btn">{{ __('messages.explore_cook') }} <span class="material-symbols-outlined text-[18px] ml-1 transform group-hover/btn:translate-x-1 transition-transform">arrow_forward</span></a>
                     </div>
                 </div>
             </article>
@@ -294,9 +199,9 @@
                 <div class="w-24 h-24 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-6 text-secondary">
                     <span class="material-symbols-outlined text-[48px]">search_off</span>
                 </div>
-                <h3 class="text-2xl font-bold text-on-surface mb-2">Yah, resep tidak ditemukan</h3>
-                <p class="text-on-surface-variant max-w-md mx-auto">Coba cari dengan kata kunci lain atau ubah filter kategori masakan di atas.</p>
-                <button onclick="document.getElementById('searchInput').value=''; filterRecipes();" class="mt-6 bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-container transition-colors">Lihat Semua Resep</button>
+                <h3 class="text-2xl font-bold text-on-surface mb-2">{{ __('messages.explore_empty_title') }}</h3>
+                <p class="text-on-surface-variant max-w-md mx-auto">{{ __('messages.explore_empty_subtitle') }}</p>
+                <button onclick="document.getElementById('searchInput').value=''; filterRecipes();" class="mt-6 bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-container transition-colors">{{ __('messages.explore_view_all') }}</button>
             </div>
         </section>
 
@@ -304,7 +209,7 @@
         <div class="flex justify-center mb-16" id="loadMoreContainer">
             <button class="bg-surface-container-lowest border border-outline-variant/30 text-primary font-bold text-sm px-8 py-3.5 rounded-full hover:bg-surface-container-low transition-colors shadow-sm flex items-center gap-2 group">
                 <span class="material-symbols-outlined transform group-hover:rotate-180 transition-transform duration-500">autorenew</span>
-                Tampilkan Lebih Banyak
+                {{ __('messages.explore_load_more') }}
             </button>
         </div>
     </main>
@@ -371,7 +276,7 @@
         }
 
         function initBookmarks() {
-            const savedBookmarks = JSON.parse(localStorage.getItem('chefBookmarks')) || [];
+            const savedBookmarks = @json($bookmarkedRecipeIds ?? []);
             document.querySelectorAll('.recipe-card').forEach(card => {
                 const id = parseInt(card.getAttribute('data-id'));
                 const icon = card.querySelector('.icon-bookmark');
@@ -385,19 +290,45 @@
             });
         }
 
-        function toggleBookmark(btn, id) {
+        async function toggleBookmark(btn, recipe) {
             const icon = btn.querySelector('.icon-bookmark');
-            let savedBookmarks = JSON.parse(localStorage.getItem('chefBookmarks')) || [];
-            if (savedBookmarks.includes(id)) {
-                savedBookmarks = savedBookmarks.filter(bId => bId !== id);
-                icon.classList.remove('text-primary', 'icon-fill');
-                icon.classList.add('text-secondary');
-            } else {
-                savedBookmarks.push(id);
-                icon.classList.remove('text-secondary');
-                icon.classList.add('text-primary', 'icon-fill');
+            
+            try {
+                const response = await fetch('/explore/bookmark', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        recipe_id: recipe.id,
+                        title: recipe.title,
+                        slug: recipe.slug,
+                        image: recipe.image,
+                        category: recipe.category,
+                        time: recipe.time,
+                        difficulty: recipe.difficulty,
+                        description: recipe.description
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === 'added') {
+                        icon.classList.remove('text-secondary');
+                        icon.classList.add('text-primary', 'icon-fill');
+                    } else if (data.status === 'removed') {
+                        icon.classList.remove('text-primary', 'icon-fill');
+                        icon.classList.add('text-secondary');
+                    }
+                } else {
+                    alert('Gagal menyimpan penanda.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan.');
             }
-            localStorage.setItem('chefBookmarks', JSON.stringify(savedBookmarks));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -495,5 +426,6 @@
             }
         });
     </script>
+    <x-support-modal />
 </body>
 </html>

@@ -269,6 +269,10 @@ class ChatController extends Controller
             ->orderBy('last_active_at', 'desc')
             ->get();
 
-        return view('bookmarks', compact('bookmarkedSessions'));
+        $bookmarkedRecipes = \App\Models\BookmarkedRecipe::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('bookmarks', compact('bookmarkedSessions', 'bookmarkedRecipes'));
     }
 }

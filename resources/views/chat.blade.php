@@ -552,5 +552,6 @@
             return div.innerHTML;
         }
     </script>
+    <x-support-modal />
 </body>
 </html>

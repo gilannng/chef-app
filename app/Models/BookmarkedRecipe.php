@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class BookmarkedRecipe extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'recipe_id',
+        'title',
+        'slug',
+        'image',
+        'category',
+        'time',
+        'difficulty',
+        'description',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

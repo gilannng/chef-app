@@ -71,78 +71,7 @@
 <body class="font-body text-on-surface bg-texture antialiased min-h-screen flex flex-col md:flex-row">
 
     <!-- Sidebar Overlay -->
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden opacity-0 transition-all duration-300 ease-in-out" onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <aside id="sidebar"
-        class="group/sidebar h-screen fixed left-0 top-0 border-r border-surface-variant bg-surface/95 backdrop-blur-xl flex flex-col z-[60] transition-all duration-300 ease-in-out shadow-2xl md:shadow-none hover:md:shadow-2xl
-        w-64 -translate-x-full md:translate-x-0 md:w-20 hover:md:w-64 overflow-x-hidden overflow-y-auto custom-scrollbar py-6">
-
-        <button onclick="toggleSidebar()"
-            class="md:hidden absolute top-4 right-4 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="flex flex-col items-center pt-2 px-6 md:px-0 group-hover/sidebar:px-6 transition-all duration-300">
-            <div class="relative cursor-pointer shrink-0 flex justify-center w-full">
-                <a href="/settings" class="block">
-                    <img alt="Chef logo"
-                        class="w-16 h-16 md:w-10 md:h-10 group-hover/sidebar:w-16 group-hover/sidebar:h-16 rounded-full object-cover organic-shadow relative z-10 border-2 border-white transition-all duration-300"
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=fbf9f0" />
-                </a>
-            </div>
-            <div class="text-center mt-3 opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                <h2 class="text-lg font-black text-primary font-headline tracking-tight">The Atelier</h2>
-                <p class="text-[10px] font-bold text-secondary tracking-widest uppercase">Chef Simulator</p>
-            </div>
-        </div>
-
-        <div class="px-6 md:px-3 group-hover/sidebar:px-6 transition-all duration-300 w-full mt-6 shrink-0">
-            <a href="/chat"
-                class="w-full bg-gradient-to-r from-primary to-primary-container text-white rounded-xl py-3 md:py-3 px-4 md:px-0 group-hover/sidebar:px-4 font-bold text-sm organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-200 flex justify-center items-center overflow-hidden">
-                <span class="material-symbols-outlined text-[20px] shrink-0">add_circle</span>
-                <span class="whitespace-nowrap font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 w-auto md:w-0 group-hover/sidebar:w-auto overflow-hidden pl-2">Create Recipe</span>
-            </a>
-        </div>
-
-        <nav class="flex-1 space-y-1.5 font-medium px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 mt-6 shrink-0">
-            <a href="/dashboard" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">grid_view</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Home</span>
-            </a>
-            <a href="/explore" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">restaurant_menu</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Recipes</span>
-            </a>
-            <a href="/pantry" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">inventory_2</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Pantry</span>
-            </a>
-            <a href="/community" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">groups</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Community</span>
-            </a>
-            <a href="/bookmarks" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">bookmark</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Bookmarks</span>
-            </a>
-            <a href="/history" class="flex items-center bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">History</span>
-            </a>
-        </nav>
-
-        <div class="mt-4 space-y-1.5 font-medium border-t border-surface-variant pt-4 px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 shrink-0">
-            <a href="/settings" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">settings</span></div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
-            </a>
-            <a href="#" onclick="openLogoutModal(event)" class="flex items-center text-error hover:bg-error-container hover:text-error rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center"><span class="material-symbols-outlined">logout</span></div>
-                <span class="whitespace-nowrap pr-4 font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Log Out</span>
-            </a>
-        </div>
-    </aside>
+    <x-sidebar active="history" />
 
     <div id="main-content" class="md:ml-20 flex-1 flex flex-col relative transition-all duration-300 w-full h-screen overflow-y-auto">
         <nav class="sticky top-0 w-full z-40 flex justify-between items-center px-6 py-4 bg-[#fbf9f0]/80 glass-nav border-b border-surface-variant/50 transition-colors">
@@ -196,13 +125,18 @@
                                             </p>
                                         @endif
                                     </div>
-                                    <div class="flex flex-col items-end gap-1 shrink-0">
+                                    <div class="flex flex-col items-end gap-2 shrink-0">
+                                        <div class="flex items-center gap-2">
+                                            @if($session->is_bookmarked)
+                                                <span class="text-primary">
+                                                    <span class="material-symbols-outlined text-[18px] md:text-[20px] icon-fill">bookmark</span>
+                                                </span>
+                                            @endif
+                                            <button onclick="deleteSession(event, '{{ $session->id }}')" class="text-secondary/30 hover:text-error transition-colors p-1 rounded-full hover:bg-error/5">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </div>
                                         <span class="text-[10px] md:text-xs text-on-surface-variant font-bold opacity-60">{{ $session->last_active_at->format('H:i') }}</span>
-                                        @if($session->is_bookmarked)
-                                            <span class="text-primary">
-                                                <span class="material-symbols-outlined text-[18px] md:text-[20px] icon-fill">bookmark</span>
-                                            </span>
-                                        @endif
                                     </div>
                                 </a>
                             @endforeach
@@ -261,6 +195,32 @@
             content.classList.add('scale-95');
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
+
+        async function deleteSession(e, sessionId) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (!confirm('Hapus riwayat percakapan ini?')) return;
+            
+            try {
+                const response = await fetch(`/chat/session/${sessionId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Gagal menghapus sesi.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat menghapus sesi.');
+            }
+        }
     </script>
 
     <!-- Logout Modal -->
@@ -292,5 +252,6 @@
             }
         });
     </script>
+    <x-support-modal />
 </body>
 </html>

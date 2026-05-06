@@ -41,7 +41,7 @@ Route::get('/explore', function () {
             'time' => '30 mnt',
             'difficulty' => 'Mudah',
             'description' => 'Sajian sehat dan elegan, sempurna untuk makan malam ringan yang kaya akan omega-3.',
-            'image' => 'https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=600&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1200&auto=format&fit=crop',
             'slug' => 'salmon-panggang'
         ],
         [
@@ -51,7 +51,7 @@ Route::get('/explore', function () {
             'time' => '15 mnt',
             'difficulty' => 'Mudah',
             'description' => 'Awali hari dengan energi positif dari roti gandum utuh dan alpukat segar.',
-            'image' => 'https://images.unsplash.com/photo-1603048297172-c92544798d5e?q=80&w=600&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=1200&auto=format&fit=crop',
             'slug' => 'roti-bakar-alpukat'
         ],
         [
@@ -61,7 +61,7 @@ Route::get('/explore', function () {
             'time' => '120 mnt',
             'difficulty' => 'Menengah',
             'description' => 'Kuah kaldu yang dimasak perlahan dengan perpaduan rempah khas Indonesia yang menghangatkan.',
-            'image' => 'https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?q=80&w=600&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=1200&auto=format&fit=crop',
             'slug' => 'sup-daging-rempah'
         ],
         [
@@ -71,7 +71,7 @@ Route::get('/explore', function () {
             'time' => '20 mnt',
             'difficulty' => 'Mudah',
             'description' => 'Pancake lembut dengan taburan blueberry segar dan siraman sirup maple.',
-            'image' => 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=600&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1506084868230-bb9d95c24759?q=80&w=1200&auto=format&fit=crop',
             'slug' => 'pancake-blueberry'
         ],
         [
@@ -81,7 +81,7 @@ Route::get('/explore', function () {
             'time' => '45 mnt',
             'difficulty' => 'Sulit',
             'description' => 'Kue kopi berlapis krim mascarpone lembut khas Italia yang meleleh di mulut.',
-            'image' => 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=600&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1586040140378-b5634cb4c8cb?q=80&w=1200&auto=format&fit=crop',
             'slug' => 'tiramisu-klasik'
         ],
         [
@@ -91,11 +91,19 @@ Route::get('/explore', function () {
             'time' => '25 mnt',
             'difficulty' => 'Menengah',
             'description' => 'Spaghetti creamy tanpa krim! Dibuat secara autentik dengan keju pecorino dan guanciale.',
-            'image' => 'https://images.unsplash.com/photo-1611270629569-8b357cb88da9?q=80&w=600&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1200&auto=format&fit=crop',
             'slug' => 'pasta-carbonara'
         ],
     ];
-    return view('explore', compact('recipes'));
+
+    $bookmarkedRecipeIds = [];
+    if (auth()->check()) {
+        $bookmarkedRecipeIds = \App\Models\BookmarkedRecipe::where('user_id', auth()->id())
+            ->pluck('recipe_id')
+            ->toArray();
+    }
+
+    return view('explore', compact('recipes', 'bookmarkedRecipeIds'));
 });
 
 Route::get('/recipe/{slug}', function ($slug) {
@@ -106,7 +114,7 @@ Route::get('/recipe/{slug}', function ($slug) {
             'time' => '30 mnt',
             'difficulty' => 'Mudah',
             'description' => 'Sajian sehat dan elegan, sempurna untuk makan malam ringan yang kaya akan omega-3.',
-            'image' => 'https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=1200&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1200&auto=format&fit=crop',
         ],
         'roti-bakar-alpukat' => [
             'title' => 'Roti Bakar Alpukat Telur Rebus',
@@ -114,7 +122,7 @@ Route::get('/recipe/{slug}', function ($slug) {
             'time' => '15 mnt',
             'difficulty' => 'Mudah',
             'description' => 'Awali hari dengan energi positif dari roti gandum utuh dan alpukat segar.',
-            'image' => 'https://images.unsplash.com/photo-1603048297172-c92544798d5e?q=80&w=1200&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=1200&auto=format&fit=crop',
         ],
         'sup-daging-rempah' => [
             'title' => 'Sup Daging Rempah Nusantara',
@@ -122,7 +130,7 @@ Route::get('/recipe/{slug}', function ($slug) {
             'time' => '120 mnt',
             'difficulty' => 'Menengah',
             'description' => 'Kuah kaldu yang dimasak perlahan dengan perpaduan rempah khas Indonesia yang menghangatkan.',
-            'image' => 'https://images.unsplash.com/photo-1582878826629-29b7ad1cb431?q=80&w=1200&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=1200&auto=format&fit=crop',
         ],
         'pancake-blueberry' => [
             'title' => 'Pancake Blueberry Maple',
@@ -130,7 +138,7 @@ Route::get('/recipe/{slug}', function ($slug) {
             'time' => '20 mnt',
             'difficulty' => 'Mudah',
             'description' => 'Pancake lembut dengan taburan blueberry segar dan siraman sirup maple.',
-            'image' => 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=1200&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1506084868230-bb9d95c24759?q=80&w=1200&auto=format&fit=crop',
         ],
         'tiramisu-klasik' => [
             'title' => 'Tiramisu Klasik Italia',
@@ -138,7 +146,7 @@ Route::get('/recipe/{slug}', function ($slug) {
             'time' => '45 mnt',
             'difficulty' => 'Sulit',
             'description' => 'Kue kopi berlapis krim mascarpone lembut khas Italia yang meleleh di mulut.',
-            'image' => 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=1200&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1586040140378-b5634cb4c8cb?q=80&w=1200&auto=format&fit=crop',
         ],
         'pasta-carbonara' => [
             'title' => 'Pasta Carbonara Autentik',
@@ -146,7 +154,7 @@ Route::get('/recipe/{slug}', function ($slug) {
             'time' => '25 mnt',
             'difficulty' => 'Menengah',
             'description' => 'Spaghetti creamy tanpa krim! Dibuat secara autentik dengan keju pecorino dan guanciale.',
-            'image' => 'https://images.unsplash.com/photo-1611270629569-8b357cb88da9?q=80&w=1200&auto=format&fit=crop',
+            'image' => 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1200&auto=format&fit=crop',
         ],
     ];
 
@@ -173,6 +181,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/chat/message', [\App\Http\Controllers\ChatController::class, 'sendMessage']);
     Route::post('/chat/session/{id}/bookmark', [\App\Http\Controllers\ChatController::class, 'toggleBookmark']);
     Route::delete('/chat/session/{id}', [\App\Http\Controllers\ChatController::class, 'deleteSession']);
+    Route::post('/explore/bookmark', [\App\Http\Controllers\ExploreController::class, 'toggleBookmark']);
 });
 
 Route::get('/settings', function () {
@@ -185,9 +194,12 @@ Route::get('/community', function () {
 
 Route::get('/pantry', [\App\Http\Controllers\PantryController::class, 'index'])->middleware(['auth'])->name('pantry');
 Route::post('/pantry', [\App\Http\Controllers\PantryController::class, 'store'])->middleware(['auth'])->name('pantry.store');
+Route::put('/pantry/{pantry}', [\App\Http\Controllers\PantryController::class, 'update'])->middleware(['auth'])->name('pantry.update');
+Route::delete('/pantry/{pantry}', [\App\Http\Controllers\PantryController::class, 'destroy'])->middleware(['auth'])->name('pantry.destroy');
 
 
 Route::post('/generate-recipe', [RecipeController::class, 'generate'])->name('recipe.generate');
+Route::post('/language', [\App\Http\Controllers\LanguageController::class, 'switch'])->name('language.switch');
 
 
 

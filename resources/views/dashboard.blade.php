@@ -237,203 +237,14 @@
             }
         }
 
-        function acceptTerms() {
-            const storageKey = 'tosAccepted_User_{{ auth()->user()->id }}';
-            localStorage.setItem(storageKey, 'true');
-            const tosModal = document.getElementById('tos-modal');
-            tosModal.classList.add('opacity-0');
-            tosModal.querySelector('.modal-content').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                tosModal.classList.add('hidden');
-            }, 500);
-        }
-        
-        function toggleTosCheckbox() {
-            const checkbox = document.getElementById('tos-checkbox');
-            const btn = document.getElementById('tos-continue-btn');
-            if (checkbox.checked) {
-                btn.removeAttribute('disabled');
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                btn.classList.add('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
-            } else {
-                btn.setAttribute('disabled', 'true');
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
-                btn.classList.remove('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
-            }
-        }
-
-        function openSupportModal(e) {
-            if (e) e.preventDefault();
-            const tosModal = document.getElementById('tos-modal');
-            const checkbox = document.getElementById('tos-checkbox');
-            const btn = document.getElementById('tos-continue-btn');
-            
-            // Set state to show already accepted
-            checkbox.checked = true;
-            checkbox.disabled = true;
-            
-            // Update button text for Support context
-            btn.innerHTML = 'Tutup';
-            btn.removeAttribute('disabled');
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            btn.classList.add('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
-            
-            // Show modal
-            tosModal.classList.remove('hidden');
-            void tosModal.offsetWidth;
-            tosModal.classList.remove('opacity-0');
-            tosModal.querySelector('.modal-content').classList.remove('scale-95', 'opacity-0');
-        }
     </script>
 
-    <!-- Terms of Service Modal -->
-    <div id="tos-modal" class="fixed inset-0 z-[900] bg-black/60 backdrop-blur-md hidden opacity-0 transition-opacity duration-500 flex items-center justify-center p-4">
-        <div class="modal-content bg-surface max-w-2xl w-full rounded-3xl shadow-2xl scale-95 opacity-0 transition-all duration-500 overflow-hidden flex flex-col max-h-[85vh]">
-            <div class="px-8 py-6 border-b border-surface-variant shrink-0 flex items-center gap-4 bg-surface-container-lowest">
-                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-primary">gavel</span>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-extrabold text-on-surface tracking-tight">Terms of Service</h3>
-                    <p class="text-xs font-semibold text-secondary uppercase tracking-widest mt-1">Harap baca sebelum melanjutkan</p>
-                </div>
-            </div>
-            <div class="p-8 overflow-y-auto custom-scrollbar text-sm text-secondary space-y-6 font-medium leading-relaxed bg-surface">
-                <p class="text-base text-on-surface">Selamat datang di <strong>Culinary Atelier</strong>. Dengan mengakses dan menggunakan platform ini, Anda menyetujui seluruh ketentuan layanan berikut:</p>
-                
-                <div>
-                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">cookie</span> 1. Penggunaan Platform</h4>
-                    <p>Aplikasi ini menyediakan simulasi dapur virtual, manajemen bahan (smart pantry), dan komunitas resep. Anda diwajibkan menggunakan aplikasi ini sesuai dengan hukum yang berlaku dan tidak menggunakannya untuk tujuan ilegal.</p>
-                </div>
-                
-                <div>
-                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">shield</span> 2. Privasi & Keamanan Data</h4>
-                    <p>Data profil, resep, dan aktivitas yang Anda unggah akan disimpan secara aman. Kami berkomitmen untuk tidak membagikan data pribadi Anda ke pihak ketiga tanpa persetujuan eksplisit Anda.</p>
-                </div>
-                
-                <div>
-                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">group</span> 3. Etika Komunitas</h4>
-                    <p>Dalam berinteraksi di fitur komunitas, Anda harus mematuhi standar etika tinggi. Dilarang keras mengunggah konten yang tidak pantas, ujaran kebencian, atau spam. Pelanggaran dapat mengakibatkan suspensi akun secara permanen.</p>
-                </div>
-                
-                <div>
-                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">copyright</span> 4. Hak Cipta & Properti Intelektual</h4>
-                    <p>Semua resep dan karya orisinal yang dibagikan tetap menjadi hak cipta pembuatnya masing-masing. Dengan mengunggahnya, Anda memberikan lisensi kepada Culinary Atelier untuk menampilkannya di platform kami demi kemajuan bersama.</p>
-                </div>
-            </div>
-            <div class="p-8 border-t border-surface-variant bg-surface-container-lowest shrink-0">
-                <label class="flex items-center gap-4 cursor-pointer group mb-8 p-4 rounded-2xl hover:bg-surface-variant transition-colors border border-transparent hover:border-outline-variant">
-                    <div class="relative flex items-center shrink-0">
-                        <input type="checkbox" id="tos-checkbox" class="w-6 h-6 text-primary bg-surface border-2 border-outline rounded focus:ring-primary focus:ring-2 cursor-pointer transition-colors duration-200" onchange="toggleTosCheckbox()">
-                    </div>
-                    <span class="text-[15px] font-bold text-on-surface group-hover:text-primary transition-colors leading-tight">Saya telah membaca dan menyetujui seluruh Ketentuan Layanan (Terms of Service) dari Culinary Atelier.</span>
-                </label>
-                <div class="flex justify-end">
-                    <button id="tos-continue-btn" disabled onclick="acceptTerms()" class="bg-primary text-white font-black uppercase tracking-widest text-sm py-4 px-10 rounded-xl opacity-50 cursor-not-allowed transition-all duration-300">
-                        Lanjutkan ke Dashboard
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Terms of Service / Support Modal -->
+    <x-support-modal />
 
     <div id="toast-container" class="fixed top-20 right-8 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
-    <div id="sidebar-overlay"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 hidden opacity-0 transition-all duration-300 ease-in-out"
-        onclick="toggleSidebar()"></div>
-
-    <aside id="sidebar"
-        class="group/sidebar h-screen fixed left-0 top-0 border-r border-surface-variant bg-surface/95 backdrop-blur-xl flex flex-col z-[60] transition-all duration-300 ease-in-out shadow-2xl md:shadow-none hover:md:shadow-2xl
-        w-64 -translate-x-full md:translate-x-0 md:w-20 hover:md:w-64 overflow-x-hidden overflow-y-auto custom-scrollbar py-6">
-
-        <button onclick="toggleSidebar()"
-            class="md:hidden absolute top-4 right-4 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="flex flex-col items-center pt-2 px-6 md:px-0 group-hover/sidebar:px-6 transition-all duration-300">
-            <div class="relative cursor-pointer shrink-0 flex justify-center w-full">
-                <a href="/settings" class="block">
-                    <img alt="Chef logo"
-                        class="w-16 h-16 md:w-10 md:h-10 group-hover/sidebar:w-16 group-hover/sidebar:h-16 rounded-full object-cover organic-shadow relative z-10 border-2 border-white transition-all duration-300"
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=fbf9f0" />
-                </a>
-            </div>
-            <div class="text-center mt-3 opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                <h2 class="text-lg font-black text-primary font-headline tracking-tight">The Atelier</h2>
-                <p class="text-[10px] font-bold text-secondary tracking-widest uppercase">Chef Simulator</p>
-            </div>
-        </div>
-
-        <div class="px-6 md:px-3 group-hover/sidebar:px-6 transition-all duration-300 w-full mt-6 shrink-0">
-            <a href="/chat"
-                class="w-full bg-gradient-to-r from-primary to-primary-container text-white rounded-xl py-3 md:py-3 px-4 md:px-0 group-hover/sidebar:px-4 font-bold text-sm organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-200 flex justify-center items-center overflow-hidden">
-                <span class="material-symbols-outlined text-[20px] shrink-0">add_circle</span> 
-                <span class="whitespace-nowrap font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 w-auto md:w-0 group-hover/sidebar:w-auto overflow-hidden pl-2">Create Recipe</span>
-            </a>
-        </div>
-
-        <nav class="flex-1 space-y-1.5 font-medium px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 mt-6 shrink-0">
-            <a href="/dashboard" class="flex items-center bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Home</span>
-            </a>
-            <a href="/explore" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">restaurant_menu</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Recipes</span>
-            </a>
-            <a href="/pantry" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">inventory_2</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Pantry</span>
-            </a>
-            <a href="/community" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">groups</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Community</span>
-            </a>
-            <a href="/bookmarks" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">bookmark</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Bookmarks</span>
-            </a>
-            <a href="/history" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">history</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">History</span>
-            </a>
-        </nav>
-
-        <div class="mt-4 space-y-1.5 font-medium border-t border-surface-variant pt-4 px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 shrink-0">
-            <a href="/settings" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">settings</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
-            </a>
-            <a href="#" onclick="openSupportModal(event)" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">help_outline</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Support</span>
-            </a>
-            <a href="#" onclick="openLogoutModal(event)" class="flex items-center text-error hover:bg-error-container hover:text-error rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">logout</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Log Out</span>
-            </a>
-        </div>
-    </aside>
+    <x-sidebar active="dashboard" />
 
     <div id="main-content" class="md:ml-20 flex-1 flex flex-col relative overflow-hidden transition-all duration-300 w-full">
 
@@ -536,19 +347,19 @@
                             </span>
                         </div>
                         <h2 class="text-3xl md:text-5xl font-display font-bold tracking-tight text-on-surface mb-3 leading-tight">
-                            Siap berkreasi,<br /><span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">{{ auth()->user()->name }}!</span>
+                            {!! __('messages.dashboard_hero_title', ['name' => auth()->user()->name]) !!}
                         </h2>
                         <p class="text-base text-secondary mb-8 font-medium max-w-lg">
-                            Tantangan hari ini: Buat hidangan menggunakan <strong>rosemary</strong> dan <strong>bawang putih</strong>.
+                            {!! __('messages.dashboard_hero_subtitle') !!}
                         </p>
                         <a href="/chat" class="bg-gradient-to-r from-primary to-primary-container text-white px-8 py-4 rounded-2xl font-bold text-base inline-flex items-center gap-3 organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-300 w-max group/btn">
-                            Mulai Simulasi Baru
+                            {{ __('messages.dashboard_hero_btn') }}
                             <span class="material-symbols-outlined transform group-hover/btn:rotate-12 transition-transform" style="font-variation-settings: 'FILL' 1;">skillet</span>
                         </a>
                     </div>
                     
                     <!-- Decorative Image Right side -->
-                    <div class="absolute right-0 bottom-0 h-[120%] w-1/2 hidden md:block opacity-20 transform translate-x-1/4 translate-y-1/4 group-hover:scale-105 transition-transform duration-1000 pointer-events-none">
+                    <div class="absolute right-0 bottom-0 h-[120%] w-1/2 hidden md:block opacity-70 transform translate-x-1/4 translate-y-1/4 group-hover:scale-105 transition-transform duration-1000 pointer-events-none">
                         <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover rounded-tl-[100px]" style="mask-image: linear-gradient(to left, black, transparent); -webkit-mask-image: linear-gradient(to left, black, transparent);" />
                     </div>
                 </section>

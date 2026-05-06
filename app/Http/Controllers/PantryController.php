@@ -49,4 +49,47 @@ class PantryController extends Controller
 
         return back()->with('success', 'Ingredient added to pantry!');
     }
+
+    /**
+     * Delete a pantry item.
+     */
+    public function destroy(Pantry $pantry): RedirectResponse
+    {
+        // Ensure user owns the item
+        if ($pantry->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $pantry->delete();
+
+        return back()->with('success', 'Bahan berhasil dihapus dari dapur!');
+    }
+
+    /**
+     * Update a pantry item.
+     */
+    public function update(Request $request, Pantry $pantry): RedirectResponse
+    {
+        // Ensure user owns the item
+        if ($pantry->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string',
+            'quantity' => 'required|numeric|min:0',
+            'unit' => 'required|string',
+        ]);
+
+        $pantry->update([
+            'name' => $validated['name'],
+            'category' => $validated['category'],
+            'quantity' => $validated['quantity'],
+            'unit' => $validated['unit'],
+            'status' => $validated['quantity'] <= 5 ? 'Menipis' : 'Aman',
+        ]);
+
+        return back()->with('success', 'Bahan berhasil diperbarui!');
+    }
 }

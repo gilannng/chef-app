@@ -71,5 +71,19 @@
                 </div>
             </div>
         </div>
+        <script>
+            // Professional global image fallback mechanism
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+                    if (e.target.dataset.fallbackApplied) return;
+                    e.target.dataset.fallbackApplied = 'true';
+                    
+                    e.target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f5f4eb'/%3E%3Cstop offset='100%25' stop-color='%23e2e3dd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='600' fill='url(%23bg)'/%3E%3Cg transform='translate(400, 260)' text-anchor='middle'%3E%3Cg stroke='%23a09e95' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='-32' y='-32' width='64' height='64' rx='12'/%3E%3Ccircle cx='-10' cy='-10' r='6'/%3E%3Cpath d='M-32 16 L-16 0 L8 24 M12 12 L32 32'/%3E%3C/g%3E%3Ctext y='70' font-family='Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif' font-size='14' font-weight='800' fill='%235e5c54' letter-spacing='0.08em'%3EIMAGE NOT AVAILABLE%3C/text%3E%3Ctext y='92' font-family='Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif' font-size='12' font-weight='500' fill='%23858277'%3EVisual tidak dapat dimuat%3C/text%3E%3C/g%3E%3C/svg%3E";
+                    
+                    e.target.classList.remove('p-4', 'bg-surface-container-low', 'object-contain');
+                    e.target.classList.add('object-cover');
+                }
+            }, true);
+        </script>
     </body>
 </html>

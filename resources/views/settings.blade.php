@@ -66,102 +66,7 @@
 <body class="font-body text-on-surface bg-texture antialiased pb-24 md:pb-0 flex flex-col md:flex-row min-h-screen">
 
     <!-- Sidebar Overlay for Mobile -->
-    <div id="sidebar-overlay"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden opacity-0 transition-all duration-300 ease-in-out"
-        onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <aside id="sidebar"
-        class="group/sidebar h-screen fixed left-0 top-0 border-r border-surface-variant bg-surface/95 backdrop-blur-xl flex flex-col z-[60] transition-all duration-300 ease-in-out shadow-2xl md:shadow-none hover:md:shadow-2xl
-        w-64 -translate-x-full md:translate-x-0 md:w-20 hover:md:w-64 overflow-x-hidden overflow-y-auto custom-scrollbar py-6">
-
-        <button onclick="toggleSidebar()"
-            class="md:hidden absolute top-4 right-4 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="flex flex-col items-center pt-2 px-6 md:px-0 group-hover/sidebar:px-6 transition-all duration-300">
-            <div class="relative cursor-pointer shrink-0 flex justify-center w-full">
-                <a href="/settings" class="block">
-                    <img alt="Chef logo"
-                        class="w-16 h-16 md:w-10 md:h-10 group-hover/sidebar:w-16 group-hover/sidebar:h-16 rounded-full object-cover organic-shadow relative z-10 border-2 border-white transition-all duration-300"
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=fbf9f0" />
-                </a>
-            </div>
-            <div class="text-center mt-3 opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                <h2 class="text-lg font-black text-primary font-headline tracking-tight">The Atelier</h2>
-                <p class="text-[10px] font-bold text-secondary tracking-widest uppercase">Chef Simulator</p>
-            </div>
-        </div>
-
-        <div class="px-6 md:px-3 group-hover/sidebar:px-6 transition-all duration-300 w-full mt-6 shrink-0">
-            <a href="/chat"
-                class="w-full bg-gradient-to-r from-primary to-primary-container text-white rounded-xl py-3 md:py-3 px-4 md:px-0 group-hover/sidebar:px-4 font-bold text-sm organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-200 flex justify-center items-center overflow-hidden">
-                <span class="material-symbols-outlined text-[20px] shrink-0">add_circle</span> 
-                <span class="whitespace-nowrap font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 w-auto md:w-0 group-hover/sidebar:w-auto overflow-hidden pl-2">Create Recipe</span>
-            </a>
-        </div>
-
-        <nav class="flex-1 space-y-1.5 font-medium px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 mt-6 shrink-0">
-            <a href="/dashboard" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">grid_view</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Home</span>
-            </a>
-            <a href="/explore" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">restaurant_menu</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Recipes</span>
-            </a>
-            <a href="/pantry" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">inventory_2</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Pantry</span>
-            </a>
-            <a href="/community" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">groups</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Community</span>
-            </a>
-            <a href="/bookmarks" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">bookmark</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Bookmarks</span>
-            </a>
-            <a href="/history" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">history</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">History</span>
-            </a>
-        </nav>
-
-        <div class="mt-4 space-y-1.5 font-medium border-t border-surface-variant pt-4 px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 shrink-0">
-            <a href="/settings" class="flex items-center bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
-            </a>
-            <a href="#" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">help_outline</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Support</span>
-            </a>
-            <a href="#" onclick="openLogoutModal(event)" class="flex items-center text-error hover:bg-error-container hover:text-error rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">logout</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Log Out</span>
-            </a>
-        </div>
-    </aside>
+    <x-sidebar active="settings" />
 
     <div id="main-content" class="md:ml-20 flex-1 flex flex-col relative transition-all duration-300 w-full h-screen overflow-hidden">
 
@@ -235,8 +140,8 @@
         <main class="flex-1 p-6 md:p-12 relative overflow-y-auto">
             <div class="max-w-3xl mx-auto space-y-12">
                 <header>
-                    <h1 class="font-display text-4xl font-bold tracking-tight text-on-surface mb-2">Settings</h1>
-                    <p class="font-body text-on-surface-variant text-lg">Manage your culinary preferences and account details.</p>
+                    <h1 class="font-display text-4xl font-bold tracking-tight text-on-surface mb-2">Pengaturan</h1>
+                    <p class="font-body text-on-surface-variant text-lg">Kelola preferensi kuliner dan detail akun Anda.</p>
                 </header>
 
                 <div class="space-y-8">
@@ -244,7 +149,7 @@
                     <section class="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-surface-variant/50 relative overflow-hidden group">
                         <h2 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">account_circle</span>
-                            Account Profile
+                            Profil Akun
                         </h2>
                         <div class="flex flex-col md:flex-row gap-8 items-start">
                             <!-- Avatar Upload -->
@@ -260,14 +165,14 @@
                                 @method('patch')
                                 
                                 <div>
-                                    <label class="block font-label text-sm font-bold mb-2 text-on-surface-variant uppercase tracking-wider" for="name">Chef Name</label>
+                                    <label class="block font-label text-sm font-bold mb-2 text-on-surface-variant uppercase tracking-wider" for="name">Nama Chef</label>
                                     <input class="w-full bg-surface-container-high border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow text-on-surface font-body" id="name" name="name" type="text" value="{{ old('name', auth()->user()->name) }}" required/>
                                     @error('name', 'updateProfileInformation')
                                         <p class="text-error text-xs mt-1">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div>
-                                    <label class="block font-label text-sm font-bold mb-2 text-on-surface-variant uppercase tracking-wider" for="email">Email Address</label>
+                                    <label class="block font-label text-sm font-bold mb-2 text-on-surface-variant uppercase tracking-wider" for="email">Alamat Email</label>
                                     <input class="w-full bg-surface-container-high border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow text-on-surface font-body" id="email" name="email" type="email" value="{{ old('email', auth()->user()->email) }}" required/>
                                     @error('email', 'updateProfileInformation')
                                         <p class="text-error text-xs mt-1">{{ $message }}</p>
@@ -275,12 +180,12 @@
                                 </div>
                                 
                                 @if (session('status') === 'profile-updated')
-                                    <p class="text-primary text-sm font-bold">Profile updated successfully!</p>
-                                @endif
+                                    <p class="text-primary text-sm font-bold">Profil berhasil diperbarui!</p>
+@endif
 
                                 <div class="pt-2">
                                     <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-container text-white font-bold text-sm shadow-sm hover:opacity-90 transition-opacity">
-                                        Save Changes
+                                        Simpan Perubahan
                                     </button>
                                 </div>
                             </form>
@@ -291,7 +196,7 @@
                     <section class="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-surface-variant/50">
                         <h2 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">tune</span>
-                            Environment Preferences
+                            Preferensi Lingkungan
                         </h2>
                         <div class="space-y-6">
                             <!-- Toggle Item 1 -->
@@ -326,6 +231,23 @@
                                     <span class="inline-block h-4 w-4 transform rounded-full bg-white translate-x-6 transition-transform"></span>
                                 </button>
                             </div>
+
+                            <div class="h-px bg-surface-variant/50 w-full"></div>
+
+                            <!-- Language Preference -->
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-body font-bold text-on-surface">Bahasa (Language)</p>
+                                    <p class="font-body text-sm text-on-surface-variant mt-1">Pilih bahasa antarmuka aplikasi.</p>
+                                </div>
+                                <form action="{{ route('language.switch') }}" method="POST" id="language-form">
+                                    @csrf
+                                    <select name="locale" onchange="document.getElementById('language-form').submit()" class="bg-surface-container-high border-none rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary/40 text-on-surface font-bold text-sm cursor-pointer">
+                                        <option value="id" {{ App::getLocale() === 'id' ? 'selected' : '' }}>Bahasa Indonesia</option>
+                                        <option value="en" {{ App::getLocale() === 'en' ? 'selected' : '' }}>English</option>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
                     </section>
 
@@ -333,7 +255,7 @@
                     <section class="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-surface-variant/50">
                         <h2 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">shield</span>
-                            Kitchen Security
+                            Keamanan Dapur
                         </h2>
                         <div class="space-y-6">
                             <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-variant">
@@ -345,7 +267,7 @@
                                     @endif
                                 </div>
                                 <button onclick="openPasswordModal()" class="px-5 py-2 rounded-xl border border-outline-variant/50 text-primary font-bold text-sm hover:bg-surface-container-highest transition-colors">
-                                    Update Password
+                                    Perbarui Kata Sandi
                                 </button>
                             </div>
                             <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between pt-4">
@@ -354,7 +276,7 @@
                                     <p class="font-body text-sm text-on-surface-variant mt-1">Permanently remove your recipes and data.</p>
                                 </div>
                                 <button onclick="openDeleteModal()" class="px-5 py-2 rounded-xl text-error font-bold text-sm hover:bg-error/10 transition-colors">
-                                    Delete Account
+                                    Hapus Akun
                                 </button>
                             </div>
                         </div>
@@ -610,5 +532,6 @@
             </form>
         </div>
     </div>
+    <x-support-modal />
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Chef Simulator - Pantry</title>
+    <title>The Atelier - Dapur Saya</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -72,103 +72,8 @@
 </head>
 <body class="font-body text-on-surface bg-texture antialiased pb-24 md:pb-0 flex flex-col md:flex-row min-h-screen">
 
-    <!-- Sidebar Overlay for Mobile -->
-    <div id="sidebar-overlay"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden opacity-0 transition-all duration-300 ease-in-out"
-        onclick="toggleSidebar()"></div>
-
     <!-- Sidebar -->
-    <aside id="sidebar"
-        class="group/sidebar h-screen fixed left-0 top-0 border-r border-surface-variant bg-surface/95 backdrop-blur-xl flex flex-col z-[60] transition-all duration-300 ease-in-out shadow-2xl md:shadow-none hover:md:shadow-2xl
-        w-64 -translate-x-full md:translate-x-0 md:w-20 hover:md:w-64 overflow-x-hidden overflow-y-auto custom-scrollbar py-6">
-
-        <button onclick="toggleSidebar()"
-            class="md:hidden absolute top-4 right-4 text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-
-        <div class="flex flex-col items-center pt-2 px-6 md:px-0 group-hover/sidebar:px-6 transition-all duration-300">
-            <div class="relative cursor-pointer shrink-0 flex justify-center w-full">
-                <a href="/settings" class="block">
-                    <img alt="Chef logo"
-                        class="w-16 h-16 md:w-10 md:h-10 group-hover/sidebar:w-16 group-hover/sidebar:h-16 rounded-full object-cover organic-shadow relative z-10 border-2 border-white transition-all duration-300"
-                        src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=fbf9f0" />
-                </a>
-            </div>
-            <div class="text-center mt-3 opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                <h2 class="text-lg font-black text-primary font-headline tracking-tight">The Atelier</h2>
-                <p class="text-[10px] font-bold text-secondary tracking-widest uppercase">Chef Simulator</p>
-            </div>
-        </div>
-
-        <div class="px-6 md:px-3 group-hover/sidebar:px-6 transition-all duration-300 w-full mt-6 shrink-0">
-            <a href="/chat"
-                class="w-full bg-gradient-to-r from-primary to-primary-container text-white rounded-xl py-3 md:py-3 px-4 md:px-0 group-hover/sidebar:px-4 font-bold text-sm organic-shadow hover:shadow-lg hover:shadow-primary/30 active:scale-95 transition-all duration-200 flex justify-center items-center overflow-hidden">
-                <span class="material-symbols-outlined text-[20px] shrink-0">add_circle</span> 
-                <span class="whitespace-nowrap font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 w-auto md:w-0 group-hover/sidebar:w-auto overflow-hidden pl-2">Create Recipe</span>
-            </a>
-        </div>
-
-        <nav class="flex-1 space-y-1.5 font-medium px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 mt-6 shrink-0">
-            <a href="/dashboard" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">grid_view</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Home</span>
-            </a>
-            <a href="/explore" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">restaurant_menu</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Recipes</span>
-            </a>
-            <a href="/pantry" class="flex items-center bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Pantry</span>
-            </a>
-            <a href="/community" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">groups</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Community</span>
-            </a>
-            <a href="/bookmarks" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">bookmark</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Bookmarks</span>
-            </a>
-            <a href="/history" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">history</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">History</span>
-            </a>
-        </nav>
-
-        <div class="mt-4 space-y-1.5 font-medium border-t border-surface-variant pt-4 px-4 md:px-3 group-hover/sidebar:px-4 transition-all duration-300 shrink-0">
-            <a href="/settings" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">settings</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
-            </a>
-            <a href="#" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">help_outline</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Support</span>
-            </a>
-            <a href="#" onclick="openLogoutModal(event)" class="flex items-center text-error hover:bg-error-container hover:text-error rounded-xl overflow-hidden transition-colors">
-                <div class="w-14 h-12 shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined">logout</span>
-                </div>
-                <span class="whitespace-nowrap pr-4 font-bold opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Log Out</span>
-            </a>
-        </div>
-    </aside>
+    <x-sidebar active="pantry" />
 
     <div id="main-content" class="md:ml-20 flex-1 flex flex-col relative transition-all duration-300 w-full h-screen overflow-hidden">
 
@@ -238,7 +143,7 @@
                         @endif
                         <div class="flex items-baseline justify-between mb-2">
                             <h2 class="text-3xl font-display font-bold text-on-surface tracking-tight">Dapur Saya</h2>
-                            <span class="text-sm font-medium text-secondary">Inventory</span>
+                            <span class="text-sm font-medium text-secondary">Inventaris</span>
                         </div>
                         <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
                             <!-- Chips -->
@@ -258,7 +163,7 @@
                             <!-- Mobile Search -->
                             <div class="relative w-full md:w-auto md:hidden">
                                 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary">search</span>
-                                <input class="w-full bg-surface-container-lowest rounded-xl py-3 pl-12 pr-4 border border-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/40 text-sm" placeholder="Find ingredient..." type="text"/>
+                                <input class="w-full bg-surface-container-lowest rounded-xl py-3 pl-12 pr-4 border border-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/40 text-sm" placeholder="Cari bahan..." type="text"/>
                             </div>
                         </div>
                     </div>
@@ -303,11 +208,23 @@
                                     <div class="w-14 h-14 rounded-full {{ $bgColorClass }} flex items-center justify-center {{ $colorClass }} group-hover:opacity-80 transition-colors">
                                         <span class="material-symbols-outlined text-3xl icon-fill">{{ $icon }}</span>
                                     </div>
-                                    @if($item->status === 'Menipis')
-                                        <span class="bg-error/10 text-error text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Stok Menipis</span>
-                                    @else
-                                        <button class="text-secondary/50 hover:text-secondary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
-                                    @endif
+                                    <div class="flex flex-col items-end gap-2">
+                                        @if($item->status === 'Menipis')
+                                            <span class="bg-error/10 text-error text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-widest shadow-sm">Menipis</span>
+                                        @endif
+                                        <div class="flex items-center gap-1 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                            <button type="button" onclick="openEditModal({{ $item->id }}, '{{ htmlspecialchars($item->name, ENT_QUOTES) }}', '{{ $item->category }}', {{ $item->quantity }}, '{{ $item->unit }}')" class="text-secondary/40 hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-high">
+                                                <span class="material-symbols-outlined text-[20px]">edit</span>
+                                            </button>
+                                            <form action="{{ route('pantry.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Hapus bahan ini?')" class="m-0 p-0">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-secondary/40 hover:text-error transition-colors p-1.5 rounded-full hover:bg-error-container">
+                                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mt-2">
                                     <h3 class="text-lg font-bold text-on-surface">{{ $item->name }}</h3>
@@ -334,16 +251,16 @@
                             <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                 <span class="material-symbols-outlined icon-fill">add_circle</span>
                             </div>
-                            <h3 class="text-xl font-headline font-bold text-on-surface tracking-tight">Quick Add</h3>
+                            <h3 class="text-xl font-headline font-bold text-on-surface tracking-tight">Tambah Cepat</h3>
                         </div>
                         <form method="POST" action="{{ route('pantry.store') }}" class="flex flex-col gap-6">
                             @csrf
                             <div class="flex flex-col gap-2.5">
-                                <label class="text-[11px] font-bold text-secondary uppercase tracking-widest">Ingredient Name</label>
-                                <input name="name" class="w-full bg-surface-container-high rounded-xl py-3.5 px-4 border-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-surface transition-all text-on-surface font-medium placeholder:text-secondary/50" placeholder="e.g. Olive Oil" type="text" required/>
+                                <label class="text-[11px] font-bold text-secondary uppercase tracking-widest">Nama Bahan</label>
+                                <input name="name" class="w-full bg-surface-container-high rounded-xl py-3.5 px-4 border-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-surface transition-all text-on-surface font-medium placeholder:text-secondary/50" placeholder="Misal: Minyak Zaitun" type="text" required/>
                             </div>
                             <div class="flex flex-col gap-2.5">
-                                <label class="text-[11px] font-bold text-secondary uppercase tracking-widest">Category</label>
+                                <label class="text-[11px] font-bold text-secondary uppercase tracking-widest">Kategori</label>
                                 <div class="relative">
                                     <select name="category" class="w-full bg-surface-container-high rounded-xl py-3.5 px-4 appearance-none border-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-surface transition-all text-on-surface font-medium">
                                         <option value="Bumbu">Bumbu</option>
@@ -355,7 +272,7 @@
                                 </div>
                             </div>
                             <div class="flex flex-col gap-2.5">
-                                <label class="text-[11px] font-bold text-secondary uppercase tracking-widest">Quantity</label>
+                                <label class="text-[11px] font-bold text-secondary uppercase tracking-widest">Jumlah</label>
                                 <div class="flex gap-3">
                                     <input name="quantity" class="w-2/3 bg-surface-container-high rounded-xl py-3.5 px-4 border-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-surface transition-all text-on-surface font-medium" placeholder="0" type="number" step="0.01" required/>
                                     <select name="unit" class="w-1/3 bg-surface-container-high rounded-xl py-3.5 px-2 appearance-none border-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-surface transition-all text-on-surface font-medium text-center">
@@ -367,7 +284,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="mt-4 w-full bg-gradient-to-r from-primary to-primary-container text-white font-bold py-4 rounded-xl shadow-sm hover:shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-sm font-bold">add</span> Add to Pantry
+                                <span class="material-symbols-outlined text-sm font-bold">add</span> Tambah ke Dapur
                             </button>
                         </form>
                     </div>
@@ -502,7 +419,73 @@
             </div>
         </div>
     </div>
-        <script>
+    <!-- Edit Pantry Modal -->
+    <div id="edit-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden opacity-0 transition-all duration-300 ease-in-out">
+        <div class="absolute inset-0 bg-surface/80 backdrop-blur-md" onclick="closeEditModal()"></div>
+        <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-ambient p-8 relative overflow-hidden flex flex-col transform scale-95 transition-transform duration-300 z-10" id="edit-modal-content">
+            <div class="flex items-center gap-3 mb-6 pb-6 border-b border-surface-variant">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined icon-fill">edit</span>
+                </div>
+                <h3 class="text-xl font-headline font-bold text-on-surface tracking-tight">Edit Bahan</h3>
+            </div>
+            
+            <form id="editPantryForm" method="POST" action="" class="flex flex-col gap-5">
+                @csrf
+                @method('PUT')
+                
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider" for="edit_name">Nama Bahan</label>
+                    <input class="w-full bg-surface-container-low border border-surface-variant rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface font-medium" id="edit_name" name="name" placeholder="Misal: Bawang Merah" required type="text"/>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider" for="edit_category">Kategori</label>
+                    <div class="relative">
+                        <select class="w-full bg-surface-container-low border border-surface-variant rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all appearance-none font-medium text-on-surface" id="edit_category" name="category" required>
+                            <option value="">Pilih kategori...</option>
+                            <option value="Protein">Protein</option>
+                            <option value="Sayuran">Sayuran</option>
+                            <option value="Bumbu">Bumbu & Rempah</option>
+                            <option value="Karbohidrat">Karbohidrat</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex flex-col gap-1.5 flex-1">
+                        <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider" for="edit_quantity">Jumlah</label>
+                        <input class="w-full bg-surface-container-low border border-surface-variant rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all text-on-surface font-medium" id="edit_quantity" min="0" name="quantity" placeholder="0" required step="0.1" type="number"/>
+                    </div>
+                    <div class="flex flex-col gap-1.5 w-32">
+                        <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider" for="edit_unit">Satuan</label>
+                        <div class="relative">
+                            <select class="w-full bg-surface-container-low border border-surface-variant rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all appearance-none font-medium text-on-surface" id="edit_unit" name="unit" required>
+                                <option value="kg">kg</option>
+                                <option value="gr">gr</option>
+                                <option value="liter">liter</option>
+                                <option value="ml">ml</option>
+                                <option value="pcs">pcs</option>
+                                <option value="ikat">ikat</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 mt-4 pt-4 border-t border-surface-variant">
+                    <button type="button" onclick="closeEditModal()" class="flex-1 py-3 px-4 rounded-xl border border-outline-variant/30 text-secondary font-bold hover:bg-surface-container-high transition-colors">Batal</button>
+                    <button class="flex-1 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-xl py-3 px-4 shadow-md hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-2" type="submit">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sidebar = document.getElementById('sidebar');
             const forceStyle = document.getElementById('force-hover-style');
@@ -520,6 +503,50 @@
                 });
             }
         });
+
+        // Edit Modal Logic
+        const editModal = document.getElementById('edit-modal');
+        const editModalContent = document.getElementById('edit-modal-content');
+        
+        function openEditModal(id, name, category, quantity, unit) {
+            const form = document.getElementById('editPantryForm');
+            // Set the action URL dynamically
+            form.action = `/pantry/${id}`;
+            
+            // Populate fields
+            document.getElementById('edit_name').value = name;
+            
+            // For category, since there's "Bumbu & Rempah" instead of "Bumbu" in the dropdown,
+            // we should handle matching gracefully, but let's just assign it directly or fallback
+            const catSelect = document.getElementById('edit_category');
+            catSelect.value = category;
+            if(!catSelect.value) { // if no exact match (like "Bumbu" vs "Bumbu & Rempah")
+                Array.from(catSelect.options).forEach(opt => {
+                    if (opt.value.includes(category) || category.includes(opt.value)) {
+                        catSelect.value = opt.value;
+                    }
+                });
+            }
+            
+            document.getElementById('edit_quantity').value = quantity;
+            document.getElementById('edit_unit').value = unit;
+
+            // Show modal
+            editModal.classList.remove('hidden');
+            // Trigger reflow
+            void editModal.offsetWidth;
+            editModal.classList.remove('opacity-0');
+            editModalContent.classList.remove('scale-95');
+        }
+
+        function closeEditModal() {
+            editModal.classList.add('opacity-0');
+            editModalContent.classList.add('scale-95');
+            setTimeout(() => {
+                editModal.classList.add('hidden');
+            }, 300);
+        }
     </script>
+    <x-support-modal />
 </body>
 </html>
