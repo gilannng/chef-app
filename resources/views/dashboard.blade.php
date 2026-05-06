@@ -106,6 +106,237 @@
 
 <body class="flex h-screen overflow-hidden text-sm md:text-base">
 
+    <!-- Ultra Premium Loading Screen -->
+    <div id="premium-loader" class="fixed inset-0 z-[999] bg-surface flex flex-col items-center justify-center overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)] origin-center">
+        
+        <!-- Subtle Animated Background -->
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=1920&auto=format&fit=crop')] bg-cover bg-center animate-[kenburns_10s_ease-out_forwards]"></div>
+            <div class="absolute inset-0 bg-surface/90 backdrop-blur-xl"></div>
+        </div>
+
+        <div class="relative z-10 flex flex-col items-center transition-all duration-700" id="loader-content">
+            <!-- Elegant SVG Spinner -->
+            <div class="relative w-28 h-28 mb-12 flex items-center justify-center">
+                <!-- Background circle -->
+                <svg class="absolute inset-0 w-full h-full text-surface-variant transform -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                <!-- Animated Progress Circle -->
+                <svg class="absolute inset-0 w-full h-full text-primary transform -rotate-90 drop-shadow-lg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="301.59" stroke-dashoffset="301.59" class="animate-[drawCircle_2.5s_cubic-bezier(0.85,0,0.15,1)_forwards]" />
+                </svg>
+                <!-- Center Icon -->
+                <svg class="w-10 h-10 text-primary opacity-0 animate-[fadeUp_0.8s_ease-out_0.5s_forwards]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+            </div>
+            
+            <!-- Brand Text -->
+            <h1 class="text-xs font-extrabold text-on-surface tracking-[0.4em] uppercase mb-6 opacity-0 animate-[fadeUp_1s_ease-out_0.2s_forwards]">
+                Culinary Atelier
+            </h1>
+            
+            <!-- Changing Status Text -->
+            <div class="h-6 relative overflow-hidden w-72 text-center">
+                <p class="absolute inset-x-0 text-[10px] font-bold text-secondary tracking-[0.2em] uppercase transition-all duration-500 opacity-100 transform translate-y-0" id="load-text-1">Menyiapkan Dapur...</p>
+                <p class="absolute inset-x-0 text-[10px] font-bold text-secondary tracking-[0.2em] uppercase transition-all duration-500 opacity-0 transform translate-y-4" id="load-text-2">Memanaskan Oven...</p>
+                <p class="absolute inset-x-0 text-[10px] font-bold text-primary tracking-[0.2em] uppercase transition-all duration-500 opacity-0 transform translate-y-4" id="load-text-3">Siap Berkreasi.</p>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes drawCircle {
+            0% { stroke-dashoffset: 301.59; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes kenburns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('premium-loader');
+            
+            // Check if user has already seen the loader this session
+            if (sessionStorage.getItem('hasSeenLoader')) {
+                loader.remove();
+                checkTermsOfService();
+                return; // Skip the rest of the animation logic
+            }
+            
+            // Mark as seen for future navigation within the same session
+            sessionStorage.setItem('hasSeenLoader', 'true');
+
+            const content = document.getElementById('loader-content');
+            const text1 = document.getElementById('load-text-1');
+            const text2 = document.getElementById('load-text-2');
+            const text3 = document.getElementById('load-text-3');
+            
+            // Text sequence
+            setTimeout(() => {
+                text1.classList.remove('opacity-100', 'translate-y-0');
+                text1.classList.add('opacity-0', '-translate-y-4');
+                text2.classList.remove('opacity-0', 'translate-y-4');
+                text2.classList.add('opacity-100', 'translate-y-0');
+            }, 900);
+
+            setTimeout(() => {
+                text2.classList.remove('opacity-100', 'translate-y-0');
+                text2.classList.add('opacity-0', '-translate-y-4');
+                text3.classList.remove('opacity-0', 'translate-y-4');
+                text3.classList.add('opacity-100', 'translate-y-0');
+            }, 1800);
+            
+            // Ultra-premium exit animation
+            setTimeout(() => {
+                // First fade out the content slightly and scale down
+                content.style.opacity = '0';
+                content.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    // Then the background cleanly fades out and scales up slightly like a camera aperture opening
+                    loader.style.opacity = '0';
+                    loader.style.transform = 'scale(1.05)';
+                    loader.style.pointerEvents = 'none';
+                    
+                    setTimeout(() => {
+                        loader.remove();
+                        checkTermsOfService(); // Check if TOS modal should be shown
+                    }, 1000);
+                }, 300);
+                
+            }, 2600);
+        });
+
+        // Terms of Service Logic
+        function checkTermsOfService() {
+            // Hanya tampilkan otomatis jika akun dibuat dalam 24 jam terakhir (pengguna baru)
+            const isNewlyRegistered = {{ auth()->user()->created_at->diffInHours(now()) < 24 ? 'true' : 'false' }};
+            const storageKey = 'tosAccepted_User_{{ auth()->user()->id }}';
+            
+            if (isNewlyRegistered && !localStorage.getItem(storageKey)) {
+                const tosModal = document.getElementById('tos-modal');
+                const checkbox = document.getElementById('tos-checkbox');
+                const btn = document.getElementById('tos-continue-btn');
+                
+                // Reset state for initial acceptance
+                checkbox.checked = false;
+                checkbox.disabled = false;
+                btn.innerHTML = 'Lanjutkan ke Dashboard';
+                btn.setAttribute('disabled', 'true');
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+                btn.classList.remove('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
+
+                tosModal.classList.remove('hidden');
+                // Force a browser reflow to allow the transition to play
+                void tosModal.offsetWidth;
+                tosModal.classList.remove('opacity-0');
+                tosModal.querySelector('.modal-content').classList.remove('scale-95', 'opacity-0');
+            }
+        }
+
+        function acceptTerms() {
+            const storageKey = 'tosAccepted_User_{{ auth()->user()->id }}';
+            localStorage.setItem(storageKey, 'true');
+            const tosModal = document.getElementById('tos-modal');
+            tosModal.classList.add('opacity-0');
+            tosModal.querySelector('.modal-content').classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                tosModal.classList.add('hidden');
+            }, 500);
+        }
+        
+        function toggleTosCheckbox() {
+            const checkbox = document.getElementById('tos-checkbox');
+            const btn = document.getElementById('tos-continue-btn');
+            if (checkbox.checked) {
+                btn.removeAttribute('disabled');
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.classList.add('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
+            } else {
+                btn.setAttribute('disabled', 'true');
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+                btn.classList.remove('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
+            }
+        }
+
+        function openSupportModal(e) {
+            if (e) e.preventDefault();
+            const tosModal = document.getElementById('tos-modal');
+            const checkbox = document.getElementById('tos-checkbox');
+            const btn = document.getElementById('tos-continue-btn');
+            
+            // Set state to show already accepted
+            checkbox.checked = true;
+            checkbox.disabled = true;
+            
+            // Update button text for Support context
+            btn.innerHTML = 'Tutup';
+            btn.removeAttribute('disabled');
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            btn.classList.add('hover:bg-primary-container', 'hover:-translate-y-1', 'hover:shadow-lg', 'hover:shadow-primary/30');
+            
+            // Show modal
+            tosModal.classList.remove('hidden');
+            void tosModal.offsetWidth;
+            tosModal.classList.remove('opacity-0');
+            tosModal.querySelector('.modal-content').classList.remove('scale-95', 'opacity-0');
+        }
+    </script>
+
+    <!-- Terms of Service Modal -->
+    <div id="tos-modal" class="fixed inset-0 z-[900] bg-black/60 backdrop-blur-md hidden opacity-0 transition-opacity duration-500 flex items-center justify-center p-4">
+        <div class="modal-content bg-surface max-w-2xl w-full rounded-3xl shadow-2xl scale-95 opacity-0 transition-all duration-500 overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="px-8 py-6 border-b border-surface-variant shrink-0 flex items-center gap-4 bg-surface-container-lowest">
+                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary">gavel</span>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-extrabold text-on-surface tracking-tight">Terms of Service</h3>
+                    <p class="text-xs font-semibold text-secondary uppercase tracking-widest mt-1">Harap baca sebelum melanjutkan</p>
+                </div>
+            </div>
+            <div class="p-8 overflow-y-auto custom-scrollbar text-sm text-secondary space-y-6 font-medium leading-relaxed bg-surface">
+                <p class="text-base text-on-surface">Selamat datang di <strong>Culinary Atelier</strong>. Dengan mengakses dan menggunakan platform ini, Anda menyetujui seluruh ketentuan layanan berikut:</p>
+                
+                <div>
+                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">cookie</span> 1. Penggunaan Platform</h4>
+                    <p>Aplikasi ini menyediakan simulasi dapur virtual, manajemen bahan (smart pantry), dan komunitas resep. Anda diwajibkan menggunakan aplikasi ini sesuai dengan hukum yang berlaku dan tidak menggunakannya untuk tujuan ilegal.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">shield</span> 2. Privasi & Keamanan Data</h4>
+                    <p>Data profil, resep, dan aktivitas yang Anda unggah akan disimpan secara aman. Kami berkomitmen untuk tidak membagikan data pribadi Anda ke pihak ketiga tanpa persetujuan eksplisit Anda.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">group</span> 3. Etika Komunitas</h4>
+                    <p>Dalam berinteraksi di fitur komunitas, Anda harus mematuhi standar etika tinggi. Dilarang keras mengunggah konten yang tidak pantas, ujaran kebencian, atau spam. Pelanggaran dapat mengakibatkan suspensi akun secara permanen.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-on-surface font-bold text-lg mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">copyright</span> 4. Hak Cipta & Properti Intelektual</h4>
+                    <p>Semua resep dan karya orisinal yang dibagikan tetap menjadi hak cipta pembuatnya masing-masing. Dengan mengunggahnya, Anda memberikan lisensi kepada Culinary Atelier untuk menampilkannya di platform kami demi kemajuan bersama.</p>
+                </div>
+            </div>
+            <div class="p-8 border-t border-surface-variant bg-surface-container-lowest shrink-0">
+                <label class="flex items-center gap-4 cursor-pointer group mb-8 p-4 rounded-2xl hover:bg-surface-variant transition-colors border border-transparent hover:border-outline-variant">
+                    <div class="relative flex items-center shrink-0">
+                        <input type="checkbox" id="tos-checkbox" class="w-6 h-6 text-primary bg-surface border-2 border-outline rounded focus:ring-primary focus:ring-2 cursor-pointer transition-colors duration-200" onchange="toggleTosCheckbox()">
+                    </div>
+                    <span class="text-[15px] font-bold text-on-surface group-hover:text-primary transition-colors leading-tight">Saya telah membaca dan menyetujui seluruh Ketentuan Layanan (Terms of Service) dari Culinary Atelier.</span>
+                </label>
+                <div class="flex justify-end">
+                    <button id="tos-continue-btn" disabled onclick="acceptTerms()" class="bg-primary text-white font-black uppercase tracking-widest text-sm py-4 px-10 rounded-xl opacity-50 cursor-not-allowed transition-all duration-300">
+                        Lanjutkan ke Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="toast-container" class="fixed top-20 right-8 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
     <div id="sidebar-overlay"
@@ -189,7 +420,7 @@
                 </div>
                 <span class="whitespace-nowrap pr-4 font-medium opacity-100 md:opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">Settings</span>
             </a>
-            <a href="#" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
+            <a href="#" onclick="openSupportModal(event)" class="flex items-center text-secondary hover:bg-surface-container-high rounded-xl overflow-hidden transition-colors">
                 <div class="w-14 h-12 shrink-0 flex items-center justify-center">
                     <span class="material-symbols-outlined">help_outline</span>
                 </div>
